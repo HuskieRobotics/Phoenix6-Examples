@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.subsystems.FlywheelMechanism;
+import frc.robot.subsystems.ShooterAngle;
 
 public class RobotContainer {
 
     CommandXboxController m_joystick = new CommandXboxController(0);
-    FlywheelMechanism m_mechanism = new FlywheelMechanism();
+    ShooterAngle m_mechanism = new ShooterAngle();
 
     public RobotContainer() {
         configureBindings();
