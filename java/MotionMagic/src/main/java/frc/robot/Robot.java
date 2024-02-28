@@ -23,7 +23,7 @@ import frc.robot.sim.PhysicsSim;
  * project.
  */
 public class Robot extends TimedRobot {
-  private final TalonFX m_fx = new TalonFX(1, "canivore");
+  private final TalonFX m_fx = new TalonFX(29);
   private final MotionMagicVoltage m_mmReq = new MotionMagicVoltage(0);
   private final XboxController m_joystick = new XboxController(0);
 
@@ -51,20 +51,21 @@ public class Robot extends TimedRobot {
 
     /* Configure current limits */
     MotionMagicConfigs mm = cfg.MotionMagic;
-    mm.MotionMagicCruiseVelocity = 5; // 5 rotations per second cruise
-    mm.MotionMagicAcceleration = 10; // Take approximately 0.5 seconds to reach max vel
+    mm.MotionMagicCruiseVelocity = .5; // 5 rotations per second cruise
+    mm.MotionMagicAcceleration = 1; // Take approximately 0.5 seconds to reach max vel
     // Take approximately 0.2 seconds to reach max accel 
     mm.MotionMagicJerk = 50;
 
     Slot0Configs slot0 = cfg.Slot0;
-    slot0.kP = 60;
+    slot0.kP = 69.035;
     slot0.kI = 0;
-    slot0.kD = 0.1;
-    slot0.kV = 0.12;
-    slot0.kS = 0.25; // Approximately 0.25V to get the mechanism moving
+    slot0.kD = 175.66;
+    slot0.kV = 117.47;
+    slot0.kS = 0; // Approximately 0.25V to get the mechanism moving
+    slot0.kA = 6.6747; 
 
     FeedbackConfigs fdb = cfg.Feedback;
-    fdb.SensorToMechanismRatio = 12.8;
+    fdb.SensorToMechanismRatio = 984.6;
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for(int i = 0; i < 5; ++i) {
@@ -102,7 +103,7 @@ public class Robot extends TimedRobot {
     double leftY = m_joystick.getLeftY();
     if(leftY > -0.1 && leftY < 0.1) leftY = 0;
 
-    m_fx.setControl(m_mmReq.withPosition(leftY * 10).withSlot(0));
+    m_fx.setControl(m_mmReq.withPosition(leftY * .25 + .25).withSlot(0));
     if(m_joystick.getBButton()) {
       m_fx.setPosition(1);
     }
