@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
     double leftY = m_joystick.getLeftY();
     if(leftY > -0.1 && leftY < 0.1) leftY = 0;
 
-    m_fx.setControl(m_mmReq.withPosition(leftY * .25 + .25).withSlot(0));
+    m_fx.setControl(m_mmReq.withPosition(leftY * .125 + .125).withSlot(0));
     if(m_joystick.getBButton()) {
       m_fx.setPosition(1);
     }
