@@ -12,6 +12,9 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Time;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.Velocity;
 import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +29,7 @@ public class ShooterAngle extends SubsystemBase {
     private SysIdRoutine m_SysIdRoutine =
         new SysIdRoutine(
             new SysIdRoutine.Config(
-                null,         // Default ramp rate is acceptable
+                Volts.per(Units.Seconds).of(1.5),         // Default ramp rate is acceptable
                 Volts.of(4), // Reduce dynamic voltage to 4 to prevent motor brownout
                 null,          // Default timeout is acceptable
                                        // Log state with Phoenix SignalLogger class
@@ -42,6 +45,8 @@ public class ShooterAngle extends SubsystemBase {
         TalonFXConfiguration cfg = new TalonFXConfiguration();
 
         angleMotor.getConfigurator().apply(cfg);
+
+        angleMotor.setPosition(0);
 
         /* Speed up signals for better charaterization data */
         BaseStatusSignal.setUpdateFrequencyForAll(250,
