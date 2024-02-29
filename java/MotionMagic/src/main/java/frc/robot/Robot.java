@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
@@ -80,6 +81,8 @@ public class Robot extends TimedRobot {
     }
 
     m_fx.setPosition(0);
+
+    SignalLogger.start();
   }
 
   @Override
