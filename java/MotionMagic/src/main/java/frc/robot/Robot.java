@@ -9,8 +9,10 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.MotionMagicExpoVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -24,7 +26,7 @@ import frc.robot.sim.PhysicsSim;
  */
 public class Robot extends TimedRobot {
   private final TalonFX m_fx = new TalonFX(29);
-  private final MotionMagicVoltage m_mmReq = new MotionMagicVoltage(0);
+  private final MotionMagicExpoVoltage m_mmReq = new MotionMagicExpoVoltage(0);
   private final XboxController m_joystick = new XboxController(0);
 
   private int m_printCount = 0;
@@ -51,10 +53,9 @@ public class Robot extends TimedRobot {
 
     /* Configure current limits */
     MotionMagicConfigs mm = cfg.MotionMagic;
-    mm.MotionMagicCruiseVelocity = .5; // 5 rotations per second cruise
-    mm.MotionMagicAcceleration = 1; // Take approximately 0.5 seconds to reach max vel
-    // Take approximately 0.2 seconds to reach max accel 
-    mm.MotionMagicJerk = 50;
+    mm.MotionMagicCruiseVelocity = 0; // Unlimited cruise velocity
+    mm.MotionMagicExpo_kV = 24; // kV is around 0.12 V/rps
+    mm.MotionMagicExpo_kA = 24; // Use a slower kA of 0.1 V/(rps/s)
 
     Slot0Configs slot0 = cfg.Slot0;
     slot0.kP = 69.035;
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     slot0.kD = 175.66;
     slot0.kV = 117.47;
     slot0.kS = 0; // Approximately 0.25V to get the mechanism moving
+    slot0.kG = 0.1181;
+    slot0.withGravityType(GravityTypeValue.Arm_Cosine);
     slot0.kA = 6.6747; 
 
     FeedbackConfigs fdb = cfg.Feedback;
