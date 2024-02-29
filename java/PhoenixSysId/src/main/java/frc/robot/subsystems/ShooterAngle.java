@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.SignalLogger;
+import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -43,6 +44,9 @@ public class ShooterAngle extends SubsystemBase {
         setName("Flywheel");
 
         TalonFXConfiguration cfg = new TalonFXConfiguration();
+
+        FeedbackConfigs fdb = cfg.Feedback;
+        fdb.SensorToMechanismRatio = 984.6;
 
         angleMotor.getConfigurator().apply(cfg);
 
