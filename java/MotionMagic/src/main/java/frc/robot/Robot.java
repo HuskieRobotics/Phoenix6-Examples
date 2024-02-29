@@ -78,6 +78,8 @@ public class Robot extends TimedRobot {
     if (!status.isOK()) {
       System.out.println("Could not configure device. Error: " + status.toString());
     }
+
+    m_fx.setPosition(0);
   }
 
   @Override
