@@ -55,11 +55,11 @@ public class Robot extends TimedRobot {
     /* Configure current limits */
     MotionMagicConfigs mm = cfg.MotionMagic;
     mm.MotionMagicCruiseVelocity = 0; // Unlimited cruise velocity
-    mm.MotionMagicExpo_kV = 24; // kV is around 0.12 V/rps
+    mm.MotionMagicExpo_kV = 140; // kV is around 0.12 V/rps
     mm.MotionMagicExpo_kA = 24; // Use a slower kA of 0.1 V/(rps/s)
 
     Slot0Configs slot0 = cfg.Slot0;
-    slot0.kP = 69.035;
+    slot0.kP = 69.035;  // FIXME: increase by a factor of 10
     slot0.kI = 0;
     slot0.kD = 175.66;
     slot0.kV = 117.47;
