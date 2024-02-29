@@ -11,6 +11,7 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -57,12 +58,14 @@ public class Robot extends TimedRobot {
     mm.MotionMagicJerk = 50;
 
     Slot0Configs slot0 = cfg.Slot0;
-    slot0.kP = 69.035;
+    slot0.kP = 90.035;
     slot0.kI = 0;
     slot0.kD = 175.66;
     slot0.kV = 117.47;
     slot0.kS = 0; // Approximately 0.25V to get the mechanism moving
     slot0.kA = 6.6747; 
+    slot0.withGravityType(GravityTypeValue.Arm_Cosine);
+    slot0.kG = 0.1181[]\3;
 
     FeedbackConfigs fdb = cfg.Feedback;
     fdb.SensorToMechanismRatio = 984.6;
@@ -75,6 +78,8 @@ public class Robot extends TimedRobot {
     if (!status.isOK()) {
       System.out.println("Could not configure device. Error: " + status.toString());
     }
+
+    m_fx.setPosition(0);
   }
 
   @Override
@@ -105,7 +110,7 @@ public class Robot extends TimedRobot {
 
     m_fx.setControl(m_mmReq.withPosition(leftY * .125 + .125).withSlot(0));
     if(m_joystick.getBButton()) {
-      m_fx.setPosition(1);
+      m_fx.setPosition(0);
     }
   }
 
