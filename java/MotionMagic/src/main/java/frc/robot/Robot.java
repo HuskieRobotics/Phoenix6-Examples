@@ -59,14 +59,14 @@ public class Robot extends TimedRobot {
     mm.MotionMagicExpo_kA = 24; // Use a slower kA of 0.1 V/(rps/s)
 
     Slot0Configs slot0 = cfg.Slot0;
-    slot0.kP = 69.035;  // FIXME: increase by a factor of 10
+    slot0.kP = 645.91;// 64.591;  // FIXME: increase by a factor of 10
     slot0.kI = 0;
-    slot0.kD = 175.66;
-    slot0.kV = 117.47;
-    slot0.kS = 0; // Approximately 0.25V to get the mechanism moving
-    slot0.kG = 0.1181;
+    slot0.kD = 153.52;
+    slot0.kV = 108.24;
+    slot0.kS = 0.42759; // Approximately 0.25V to get the mechanism moving
+    slot0.kG = 0.5065;
     slot0.withGravityType(GravityTypeValue.Arm_Cosine);
-    slot0.kA = 6.6747; 
+    slot0.kA = 1.0864; 
 
     FeedbackConfigs fdb = cfg.Feedback;
     fdb.SensorToMechanismRatio = 984.6;
@@ -80,7 +80,8 @@ public class Robot extends TimedRobot {
       System.out.println("Could not configure device. Error: " + status.toString());
     }
 
-    m_fx.setPosition(0);
+    m_fx.setPosition(.1253);
+
 
     SignalLogger.start();
   }
