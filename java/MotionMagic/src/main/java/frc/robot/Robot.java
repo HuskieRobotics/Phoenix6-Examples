@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     slot0.kS = 0; // Approximately 0.25V to get the mechanism moving
     slot0.kA = 6.6747; 
     slot0.withGravityType(GravityTypeValue.Arm_Cosine);
-    slot0.kG = 0.1181[]\3;
+    slot0.kG = 0.11813;
 
     FeedbackConfigs fdb = cfg.Feedback;
     fdb.SensorToMechanismRatio = 984.6;
