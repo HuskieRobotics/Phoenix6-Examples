@@ -50,9 +50,9 @@ public class ShooterAngle extends SubsystemBase {
 
         angleMotor.getConfigurator().apply(cfg);
 
-        angleMotor.setPosition(0);
+        angleMotor.setPosition(0.0186);
 
-        /* Speed up signals for better charaterization data */
+        /* Speed up signals for better characterization data */
         BaseStatusSignal.setUpdateFrequencyForAll(250,
             angleMotor.getPosition(),
             angleMotor.getVelocity(),
