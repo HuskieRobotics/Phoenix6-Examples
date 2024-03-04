@@ -8,7 +8,7 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.controls.VoltageOut;
+import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.units.Measure;
@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 
-public class SwerveRotationMechanism extends SubsystemBase {
+public class SwerveDriveMechanism extends SubsystemBase {
     private final TalonFX[] m_motorsToTest = new TalonFX[4];
     private final DutyCycleOut[] m_joystickControls = new DutyCycleOut[4];
-    private final VoltageOut[] m_sysidControls = new VoltageOut[4];
+    private final TorqueCurrentFOC[] m_sysidControls = new TorqueCurrentFOC[4];
 
     private SysIdRoutine m_SysIdRoutine =
         new SysIdRoutine(
@@ -40,17 +40,17 @@ public class SwerveRotationMechanism extends SubsystemBase {
                 null,
                 this));
 
-    public SwerveRotationMechanism() {
+    public SwerveDriveMechanism() {
         setName("Swerve Rotation");
 
-        m_motorsToTest[0] = new TalonFX(Constants.FRONT_LEFT_MODULE_STEER_MOTOR, Constants.CANBUS);
-        m_motorsToTest[1] = new TalonFX(Constants.FRONT_RIGHT_MODULE_STEER_MOTOR, Constants.CANBUS);
-        m_motorsToTest[2] = new TalonFX(Constants.BACK_LEFT_MODULE_STEER_MOTOR, Constants.CANBUS);
-        m_motorsToTest[3] = new TalonFX(Constants.BACK_RIGHT_MODULE_STEER_MOTOR, Constants.CANBUS);
+        m_motorsToTest[0] = new TalonFX(Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR, Constants.CANBUS);
+        m_motorsToTest[1] = new TalonFX(Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR, Constants.CANBUS);
+        m_motorsToTest[2] = new TalonFX(Constants.BACK_LEFT_MODULE_DRIVE_MOTOR, Constants.CANBUS);
+        m_motorsToTest[3] = new TalonFX(Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR, Constants.CANBUS);
 
         for (int i = 0; i < 4; ++i) {
             m_joystickControls[i] = new DutyCycleOut(0);
-            m_sysidControls[i] = new VoltageOut(0);
+            m_sysidControls[i] = new TorqueCurrentFOC(0);
         }
 
         for (int i = 0; i < 4; ++i) {
@@ -61,7 +61,7 @@ public class SwerveRotationMechanism extends SubsystemBase {
             BaseStatusSignal.setUpdateFrequencyForAll(250,
                 m_motorsToTest[i].getPosition(),
                 m_motorsToTest[i].getVelocity(),
-                m_motorsToTest[i].getMotorVoltage());
+                m_motorsToTest[i].getTorqueCurrent());
 
             /* Optimize out the other signals, since they're not particularly helpful for us */
             m_motorsToTest[i].optimizeBusUtilization();

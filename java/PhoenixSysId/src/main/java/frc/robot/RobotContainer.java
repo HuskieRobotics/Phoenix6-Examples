@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.subsystems.SwerveRotationMechanism;
+import frc.robot.subsystems.SwerveDriveMechanism;
 
 public class RobotContainer {
 
     CommandXboxController m_joystick = new CommandXboxController(0);
-    SwerveRotationMechanism m_mechanism = new SwerveRotationMechanism();
+    SwerveDriveMechanism m_mechanism = new SwerveDriveMechanism();
 
     public RobotContainer() {
         configureBindings();
