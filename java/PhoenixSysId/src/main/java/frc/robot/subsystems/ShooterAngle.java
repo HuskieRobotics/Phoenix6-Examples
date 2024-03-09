@@ -11,6 +11,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Time;
@@ -23,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 
 public class ShooterAngle extends SubsystemBase {
-    private final TalonFX angleMotor = new TalonFX(Constants.TALON_FX_ID);
+    private final TalonFX angleMotor = new TalonFX(Constants.TALON_FX_ID, Constants.CANBUS);
     private final DutyCycleOut m_joystickControl = new DutyCycleOut(0);
     private final VoltageOut m_sysidControl = new VoltageOut(0);
 
@@ -46,11 +47,12 @@ public class ShooterAngle extends SubsystemBase {
         TalonFXConfiguration cfg = new TalonFXConfiguration();
 
         FeedbackConfigs fdb = cfg.Feedback;
-        fdb.SensorToMechanismRatio = 984.6;
+        fdb.SensorToMechanismRatio = 180.0;
+        cfg.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
         angleMotor.getConfigurator().apply(cfg);
 
-        angleMotor.setPosition(0.0186);
+        angleMotor.setPosition(0.02888889);
 
         /* Speed up signals for better characterization data */
         BaseStatusSignal.setUpdateFrequencyForAll(250,
