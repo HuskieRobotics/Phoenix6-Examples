@@ -23,6 +23,9 @@ public class SwerveDriveMechanism extends SubsystemBase {
     private final DutyCycleOut[] m_joystickControls = new DutyCycleOut[4];
     private final TorqueCurrentFOC[] m_sysidControls = new TorqueCurrentFOC[4];
 
+    private static final double MK4I_L3_PLUS_DRIVE_GEAR_RATIO =
+      1 / ((16.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0));
+
     private SysIdRoutine m_SysIdRoutine =
         new SysIdRoutine(
             new SysIdRoutine.Config(
@@ -55,6 +58,7 @@ public class SwerveDriveMechanism extends SubsystemBase {
 
         for (int i = 0; i < 4; ++i) {
             TalonFXConfiguration cfg = new TalonFXConfiguration();
+            cfg.Feedback.SensorToMechanismRatio = MK4I_L3_PLUS_DRIVE_GEAR_RATIO;
             m_motorsToTest[i].getConfigurator().apply(cfg);
 
             /* Speed up signals for better charaterization data */
