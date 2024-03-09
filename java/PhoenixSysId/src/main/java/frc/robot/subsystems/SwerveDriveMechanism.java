@@ -11,6 +11,7 @@ import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.units.Units;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,8 +30,8 @@ public class SwerveDriveMechanism extends SubsystemBase {
     private SysIdRoutine m_SysIdRoutine =
         new SysIdRoutine(
             new SysIdRoutine.Config(
-                null,         // Default ramp rate is acceptable
-                null, // Reduce dynamic voltage to 4 to prevent motor brownout
+                Volts.per(Units.Seconds).of(1.5),         // Default ramp rate is acceptable
+                Volts.of(6.0), // Reduce dynamic voltage to 4 to prevent motor brownout
                 null,          // Default timeout is acceptable
                                        // Log state with Phoenix SignalLogger class
                 (state)->SignalLogger.writeString("state", state.toString())),
